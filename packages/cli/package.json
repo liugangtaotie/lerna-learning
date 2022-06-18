@@ -1,5 +1,5 @@
 {
-  "name": "@mo-demo/cli",
+  "name": "@mo-demo-test/cli",
   "version": "0.1.0-alpha.8",
   "description": "a demo for lerna",
   "keywords": [
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.5.5",
-    "@mo-demo/cli-shared-utils": "^0.1.0-alpha.8",
+    "@mo-demo-test/cli-shared-utils": "^0.1.0-alpha.8",
     "chalk": "^2.4.2"
   }
 }

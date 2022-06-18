@@ -130,8 +130,8 @@ lerna init
 2. 增加两个 packages
 
 ```
-lerna create @mo-demo/cli
-lerna create @mo-demo/cli-shared-utils
+lerna create @mo-demo-test/cli
+lerna create @mo-demo-test/cli-shared-utils
 ```
 > create 命令详情 请参考 [lerna create](https://github.com/lerna/lerna/blob/master/commands/create/README.md)
 
@@ -141,8 +141,8 @@ lerna create @mo-demo/cli-shared-utils
 
 ```
 lerna add chalk                                           // 为所有 package 增加 chalk 模块
-lerna add semver --scope @mo-demo/cli-shared-utils        // 为 @mo-demo/cli-shared-utils 增加 semver 模块
-lerna add @mo-demo/cli-shared-utils --scope @mo-demo/cli  // 增加内部模块之间的依赖
+lerna add semver --scope @mo-demo-test/cli-shared-utils        // 为 @mo-demo-test/cli-shared-utils 增加 semver 模块
+lerna add @mo-demo-test/cli-shared-utils --scope @mo-demo-test/cli  // 增加内部模块之间的依赖
 
 ```
 
@@ -457,18 +457,18 @@ module.exports = function (api) {
 **修改各 package 的代码**
 
 ```js
-// @mo-demo/cli/index.js
+// @mo-demo-test/cli/index.js
 if (process.env.LOCAL_DEBUG) {
   require('./src/index')                        // 如果是调试模式，加载src中的源码
 } else {
   require('./dist/index')                       // dist会发到npm
 }
 
-// @mo-demo/cli/src/index.js
-import { log } from '@mo-demo/cli-shared-utils'  // 从 utils 模块引入依赖并使用 log 函数
+// @mo-demo-test/cli/src/index.js
+import { log } from '@mo-demo-test/cli-shared-utils'  // 从 utils 模块引入依赖并使用 log 函数
 log('cli/index.js as cli entry exec!')
 
-// @mo-demo/cli/package.json
+// @mo-demo-test/cli/package.json
 {
   "main": "index.js",
   "files": [
@@ -477,14 +477,14 @@ log('cli/index.js as cli entry exec!')
 }
 
 
-// @mo-demo/cli-shared-utils/index.js
+// @mo-demo-test/cli-shared-utils/index.js
 if (process.env.LOCAL_DEBUG) {
   module.exports = require('./src/index')        // 如果是调试模式，加载src中的源码
 } else {
   module.exports = require('./dist/index')       // dist会发到npm
 }
 
-// @mo-demo/cli-shared-utils/src/index.js
+// @mo-demo-test/cli-shared-utils/src/index.js
 const log = function (str) {
   console.log(str)
 }
@@ -492,7 +492,7 @@ export {                                         //导出 log 接口
   log
 }
 
-// @mo-demo/cli-shared-utils/package.json
+// @mo-demo-test/cli-shared-utils/package.json
 {
   "main": "index.js",
   "files": [
@@ -555,7 +555,7 @@ export {                                         //导出 log 接口
 
 ![](./docs/vs-debug.png)
 
-**最棒的是，可以直接使用单步调试，调到依赖的模块中去**，如上图，我们要执行 `@mo-demo/cli-shared-utils` 模块中的 log 方法，单步进入，会直接跳到 `@mo-demo/cli-shared-utils` src 源码中去执行。如下图
+**最棒的是，可以直接使用单步调试，调到依赖的模块中去**，如上图，我们要执行 `@mo-demo-test/cli-shared-utils` 模块中的 log 方法，单步进入，会直接跳到 `@mo-demo-test/cli-shared-utils` src 源码中去执行。如下图
 
 ![](./docs/vs-debug-1.png)
 
